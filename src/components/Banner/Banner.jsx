@@ -56,7 +56,7 @@ const Banner = ({
           </h2>
 
           <p className="mt-5 max-w-xl leading-7 text-stone-600 dark:text-stone-300">
-            Foodie is a restaurant-ordering product
+            Foodie is a restaurant ordering product
             concept centered on clear choices. Every dish
             includes useful details, consistent pricing,
             and a direct path into the order flow.
