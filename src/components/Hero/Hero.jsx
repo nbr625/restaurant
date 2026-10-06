@@ -1,106 +1,152 @@
 import React from "react";
-import BiryaniImg1 from "../../assets/biryani3.png";
-import BiryaniImg2 from "../../assets/biryani5.png";
-import BiryaniImg3 from "../../assets/biryani2.png";
 import Vector from "../../assets/vector3.png";
 
-const ImageList = [
-  {
-    id: 1,
-    img: BiryaniImg1,
-  },
-  {
-    id: 2,
-    img: BiryaniImg2,
-  },
-  {
-    id: 3,
-    img: BiryaniImg3,
-  },
-];
+const Hero = ({ menuItems, onAddToCart }) => {
+  const [selectedId, setSelectedId] =
+    React.useState(menuItems[0].id);
 
-const Hero = () => {
-  const [imageId, setImageId] = React.useState(BiryaniImg1);
+  const selectedItem =
+    menuItems.find((item) => item.id === selectedId) ??
+    menuItems[0];
 
-  const bgImage = {
-    backgroundImage: `url(${Vector})`,
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    height: "100%",
-    width: "100%",
+  const scrollToMenu = () => {
+    document
+      .getElementById("menu")
+      ?.scrollIntoView({
+        behavior: "smooth",
+      });
   };
 
   return (
-    <>
-      <div
-        className="min-h-[550px] sm:min-h-[600px] bg-gray-100 flex justify-center items-center dark:bg-gray-950 dark:text-white duration-200"
-        style={bgImage}
-      >
-        <div className="container pb-8 sm:pb-0">
-          <div className="grid grid-cols-1 sm:grid-cols-2">
-            {/* text content section */}
-            <div
-              data-aos="zoom-out"
-              data-aos-duration="400"
-              data-aos-once="true"
-              className="flex flex-col justify-center gap-4 pt-12 sm:pt-0 text-center sm:text-left order-2 sm:order-1"
-            >
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold">
-                Welcome{" "}
-                <span class="bg-clip-text text-transparent bg-gradient-to-b from-primary to-secondary">
-                  Foodie
-                </span>{" "}
-                Zone
-              </h1>
-              <p className="text-sm ">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque
-                reiciendis inventore iste ratione ex alias quis magni at optio
-              </p>
-              <div>
-                <button className="bg-gradient-to-r from-primary to-secondary hover:scale-105 duration-200 text-white py-2 px-4 rounded-full">
-                  Order Now
-                </button>
-              </div>
+    <section
+      id="home"
+      className="relative flex min-h-[680px] items-center overflow-hidden bg-amber-50 pt-20 dark:bg-stone-950 sm:pt-24"
+      style={{
+        backgroundImage: `url(${Vector})`,
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+      }}
+    >
+      <div className="container py-12 sm:py-16">
+        <div className="grid items-center gap-8 lg:grid-cols-[1fr_0.9fr]">
+          <div
+            className="order-2 text-center lg:order-1 lg:text-left"
+            data-aos="fade-right"
+          >
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">
+              Contemporary Indian comfort food
+            </p>
+
+            <h1 className="mt-4 text-5xl font-bold leading-[1.05] sm:text-6xl lg:text-7xl">
+              Comfort food,
+              <span className="block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                layered with spice
+              </span>
+            </h1>
+
+            <p className="mx-auto mt-6 max-w-xl text-base leading-7 text-stone-600 dark:text-stone-300 lg:mx-0 lg:text-lg">
+              Explore a focused menu of aromatic rice
+              dishes, slow-simmered curries, and
+              refreshing house drinks, prepared for easy
+              pickup or delivery.
+            </p>
+
+            <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
+              <button
+                type="button"
+                onClick={scrollToMenu}
+                className="rounded-full bg-gradient-to-r from-primary to-secondary px-6 py-3 font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-stone-950"
+              >
+                Explore the menu
+              </button>
+
+              <button
+                type="button"
+                onClick={() =>
+                  onAddToCart(selectedItem)
+                }
+                className="rounded-full border border-stone-300 bg-white/80 px-6 py-3 font-semibold text-stone-900 transition hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:border-stone-700 dark:bg-stone-900 dark:text-white dark:focus:ring-offset-stone-950"
+              >
+                Add featured dish · ${selectedItem.price}
+              </button>
             </div>
-            {/* Image section */}
-            <div className="min-h-[450px] sm:min-h-[450px] flex justify-center items-center relative order-1 sm:order-2 ">
-              <div className="h-[300px] sm:h-[450px] overflow-hidden flex justify-center items-center">
-                <img
-                  data-aos="zoom-in"
-                  data-aos-duration="300"
-                  data-aos-once="true"
-                  src={imageId}
-                  alt="biryani img"
-                  className="w-[300px] sm:w-[450px] sm:scale-125  mx-auto spin "
-                />
+
+            <dl className="mt-10 grid grid-cols-3 gap-3 border-t border-stone-300/70 pt-6 dark:border-stone-700">
+              <div>
+                <dt className="text-xs uppercase tracking-wider text-stone-500 dark:text-stone-400">
+                  Prep time
+                </dt>
+                <dd className="mt-1 font-bold">
+                  25–35 min
+                </dd>
               </div>
-              <div className="flex lg:flex-col lg:top-1/2 lg:-translate-y-1/2 lg:py-2 justify-center gap-4 absolute bottom-[0px] lg:-right-10 bg-white/30 rounded-full">
-                {ImageList.map((item) => (
-                  <img
-                    data-aos="zoom-in"
-                    data-aos-duration="400"
-                    data-aos-once="true"
-                    src={item.img}
-                    onClick={() => {
-                      setImageId(
-                        item.id === 1
-                          ? BiryaniImg1
-                          : item.id === 2
-                          ? BiryaniImg2
-                          : BiryaniImg3
-                      );
-                    }}
-                    alt="biryani img"
-                    className="max-w-[80px] h-[80px] object-contain inline-block hover:scale-105 duration-200"
-                  />
+
+              <div>
+                <dt className="text-xs uppercase tracking-wider text-stone-500 dark:text-stone-400">
+                  Pickup
+                </dt>
+                <dd className="mt-1 font-bold">
+                  Available
+                </dd>
+              </div>
+
+              <div>
+                <dt className="text-xs uppercase tracking-wider text-stone-500 dark:text-stone-400">
+                  Location
+                </dt>
+                <dd className="mt-1 font-bold">
+                  Oakland
+                </dd>
+              </div>
+            </dl>
+          </div>
+
+          <div
+            className="order-1 lg:order-2"
+            data-aos="zoom-in"
+          >
+            <div className="relative mx-auto flex min-h-[390px] max-w-[560px] items-center justify-center sm:min-h-[500px]">
+              <div className="absolute inset-10 rounded-full bg-gradient-to-br from-primary/25 to-secondary/10 blur-2xl" />
+
+              <img
+                key={selectedItem.id}
+                src={selectedItem.img}
+                alt={selectedItem.name}
+                className="relative w-[320px] animate-[dish-enter_450ms_ease-out] drop-shadow-2xl sm:w-[470px]"
+              />
+
+              <div className="absolute bottom-0 left-1/2 flex -translate-x-1/2 gap-2 rounded-full border border-white/70 bg-white/80 p-2 shadow-xl backdrop-blur-md dark:border-stone-700 dark:bg-stone-900/80 sm:bottom-4 lg:left-auto lg:right-0 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-0 lg:flex-col">
+                {menuItems.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() =>
+                      setSelectedId(item.id)
+                    }
+                    aria-label={`Show ${item.name}`}
+                    aria-pressed={
+                      selectedId === item.id
+                    }
+                    className={`h-16 w-16 rounded-full p-1 transition sm:h-20 sm:w-20 ${
+                      selectedId === item.id
+                        ? "bg-amber-100 ring-2 ring-primary"
+                        : "hover:bg-amber-50 dark:hover:bg-stone-800"
+                    }`}
+                  >
+                    <img
+                      src={item.img}
+                      alt=""
+                      className="h-full w-full object-contain"
+                    />
+                  </button>
                 ))}
               </div>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </section>
   );
 };
 

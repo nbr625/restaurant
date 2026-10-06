@@ -1,100 +1,128 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  FaFacebook,
-  FaInstagram,
+  FaEnvelope,
+  FaGithub,
   FaLinkedin,
-  FaLocationArrow,
-  FaMobileAlt,
-} from "react-icons/fa";
+  FaLocationDot,
+} from "react-icons/fa6";
 import footerLogo from "../../assets/food-logo.png";
 
-const Footer = () => {
-  return (
-    <div className="bg-gray-100 dark:bg-gray-950">
-      <section className="max-w-[1200px] mx-auto">
-        <div className=" grid md:grid-cols-3 py-5">
-          <div className=" py-8 px-4 ">
-            <h1 className="sm:text-3xl text-xl font-bold sm:text-left text-justify mb-3 flex items-center gap-3">
-              <img src={footerLogo} alt="Logo" className="max-w-[50px]" />
-              FOODIE
-            </h1>
-            <p className="">
-              Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Possimus, voluptate.{" "}
-            </p>
-            <br />
-            <div className="flex items-center gap-3">
-              <FaLocationArrow />
-              <p>Oakland, California</p>
-            </div>
-            <div className="flex items-center gap-3 mt-3">
-              <FaMobileAlt />
-              <p>+1 123456789</p>
-            </div>
-            {/* Social Handle */}
-            <div className="flex items-center gap-3 mt-6">
-              <a href="#">
-                <FaInstagram className="text-3xl" />
-              </a>
-              <a href="#">
-                <FaFacebook className="text-3xl" />
-              </a>
-              <a href="#">
-                <FaLinkedin className="text-3xl" />
-              </a>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 col-span-2 md:pl-10 ">
-            <div className="">
-              <div className="py-8 px-4 ">
-                <h1 className="sm:text-xl text-xl font-bold sm:text-left text-justify mb-3">
-                  Important Links
-                </h1>
-                <ul className={`flex flex-col gap-3`}>
-                  <li className="cursor-pointer">Home</li>
-                  <li className="cursor-pointer">About</li>
-                  <li className="cursor-pointer">Services</li>
-                  <li className="cursor-pointer">Login</li>
-                </ul>
-              </div>
-            </div>
-            <div className="">
-              <div className="py-8 px-4 ">
-                <h1 className="sm:text-xl text-xl font-bold sm:text-left text-justify mb-3">
-                  Links
-                </h1>
-                <ul className="flex flex-col gap-3">
-                  <li className="cursor-pointer">Home</li>
-                  <li className="cursor-pointer">About</li>
-                  <li className="cursor-pointer">Services</li>
-                  <li className="cursor-pointer">Login</li>
-                </ul>
-              </div>
-            </div>
-            <div className="">
-              <div className="py-8 px-4 ">
-                <h1 className="sm:text-xl text-xl font-bold sm:text-left text-justify mb-3">
-                  Links
-                </h1>
-                {/* <ul className="list-disc list-inside"> */}
-                <ul className="flex flex-col gap-3">
-                  <li className="cursor-pointer">Home</li>
-                  <li className="cursor-pointer">About</li>
-                  <li className="cursor-pointer">Services</li>
-                  <li className="cursor-pointer">Login</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+const footerLinks = [
+  {
+    name: "Home",
+    link: "#home",
+  },
+  {
+    name: "Menu",
+    link: "#menu",
+  },
+  {
+    name: "About",
+    link: "#about",
+  },
+  {
+    name: "Experience",
+    link: "#experience",
+  },
+];
+
+const Footer = () => (
+  <footer className="border-t border-stone-200 bg-stone-100 dark:border-stone-800 dark:bg-stone-950">
+    <div className="container py-12">
+      <div className="grid gap-10 md:grid-cols-[1.5fr_0.7fr_0.8fr]">
         <div>
-          <div className="text-center py-10 border-t-2 border-gray-300/50">
-            Made by Nicolas Berrizbeitia || <a className="text-orange-400" href="https://github.com/nbr625/restaurant">Github Repo Link</a>
+          <a
+            href="#home"
+            className="flex items-center gap-3 text-2xl font-bold"
+            aria-label="Foodie home"
+          >
+            <img
+              src={footerLogo}
+              alt=""
+              className="h-12 w-12 object-contain"
+            />
+            Foodie
+          </a>
+
+          <p className="mt-4 max-w-lg leading-7 text-stone-600 dark:text-stone-300">
+            A restaurant-ordering product concept
+            demonstrating reusable React components,
+            shared state, local persistence, responsive
+            design, and accessible interactions.
+          </p>
+
+          <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
+            Portfolio prototype only. No orders,
+            payments, or personal information are
+            transmitted.
+          </p>
+        </div>
+
+        <nav aria-label="Footer navigation">
+          <h2 className="font-bold">Explore</h2>
+
+          <ul className="mt-4 space-y-3">
+            {footerLinks.map((item) => (
+              <li key={item.link}>
+                <a
+                  href={item.link}
+                  className="text-stone-600 transition hover:text-primary dark:text-stone-300 dark:hover:text-amber-400"
+                >
+                  {item.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div>
+          <h2 className="font-bold">Project</h2>
+
+          <p className="mt-4 flex items-center gap-2 text-stone-600 dark:text-stone-300">
+            <FaLocationDot
+              aria-hidden="true"
+              className="text-primary"
+            />
+            Oakland, California
+          </p>
+
+          <div className="mt-5 flex items-center gap-4 text-2xl">
+            <a
+              href="https://github.com/nbr625/restaurant"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="View the restaurant project on GitHub"
+              className="transition hover:text-primary"
+            >
+              <FaGithub />
+            </a>
+
+            <a
+              href="https://www.linkedin.com/in/nicolas-berrizbeitia-658212b6/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Nicolas Berrizbeitia on LinkedIn"
+              className="transition hover:text-primary"
+            >
+              <FaLinkedin />
+            </a>
+
+            <a
+              href="mailto:nbr625@gmail.com"
+              aria-label="Email Nicolas Berrizbeitia"
+              className="transition hover:text-primary"
+            >
+              <FaEnvelope />
+            </a>
           </div>
         </div>
-      </section>
+      </div>
+
+      <div className="mt-10 border-t border-stone-300 pt-6 text-center text-sm text-stone-500 dark:border-stone-800 dark:text-stone-400">
+        Designed and built by Nicolas Berrizbeitia
+      </div>
     </div>
-  );
-};
+  </footer>
+);
 
 export default Footer;

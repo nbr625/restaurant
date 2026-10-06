@@ -1,46 +1,58 @@
-import React, { useState, useEffect } from "react";
-import darkPng from "../../assets/website/dark-mode-button.png";
-import lightPng from "../../assets/website/light-mode-button.png";
+import React from "react";
+import {
+  MdDarkMode,
+  MdLightMode,
+} from "react-icons/md";
+
+const getInitialTheme = () => {
+  const savedTheme = localStorage.getItem("theme");
+
+  if (savedTheme) {
+    return savedTheme;
+  }
+
+  return window.matchMedia(
+    "(prefers-color-scheme: dark)"
+  ).matches
+    ? "dark"
+    : "light";
+};
 
 const DarkMode = () => {
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
-  );
-  const element = document.documentElement;
+  const [theme, setTheme] =
+    React.useState(getInitialTheme);
 
-  useEffect(() => {
-    if (theme === "dark") {
-      element.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      element.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
+  React.useEffect(() => {
+    document.documentElement.classList.toggle(
+      "dark",
+      theme === "dark"
+    );
+
+    localStorage.setItem("theme", theme);
   }, [theme]);
+
+  const isDark = theme === "dark";
+
   return (
-    <>
-      <div className="relative ">
-        <img
-          // src={theme === "dark" ? darkPng : lightPng}
-          src={lightPng}
-          alt="dark"
-          onClick={() =>
-            setTheme((data) => (data === "dark" ? "light" : "dark"))
-          }
-          className={`w-12 cursor-pointer drop-shadow-[1px_1px_1px_rgba(0,0,0,0.1)] transition-all duration-300 absolute right-0 z-10  ${
-            theme === "dark" ? "opacity-0" : "opacity-100"
-          } `}
-        />
-        <img
-          src={darkPng}
-          alt="dark"
-          onClick={() =>
-            setTheme((data) => (data === "dark" ? "light" : "dark"))
-          }
-          className="w-12 cursor-pointer drop-shadow-[1px_1px_2px_rgba(0,0,0,0.5)] duration-300 "
-        />
-      </div>
-    </>
+    <button
+      type="button"
+      onClick={() =>
+        setTheme(isDark ? "light" : "dark")
+      }
+      className="rounded-full p-2.5 text-xl text-stone-700 transition hover:bg-stone-100 focus:outline-none focus:ring-2 focus:ring-primary dark:text-amber-300 dark:hover:bg-stone-800"
+      aria-label={
+        isDark ? "Use light theme" : "Use dark theme"
+      }
+      title={
+        isDark ? "Use light theme" : "Use dark theme"
+      }
+    >
+      {isDark ? (
+        <MdLightMode aria-hidden="true" />
+      ) : (
+        <MdDarkMode aria-hidden="true" />
+      )}
+    </button>
   );
 };
 

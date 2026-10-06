@@ -1,88 +1,113 @@
 import React from "react";
-import Img from "../../assets/biryani.png";
+import Img1 from "../../assets/biryani.png";
 import Img2 from "../../assets/biryani2.png";
 import Img3 from "../../assets/biryani4.png";
-import StarRatings from "react-star-ratings";
-const ServicesData = [
+import { FaPlus } from "react-icons/fa6";
+
+export const MENU_ITEMS = [
   {
-    id: 1,
-    img: Img2,
-    name: "Biryani",
+    id: "signature-biryani",
+    img: Img1,
+    name: "Signature Chicken Biryani",
     description:
-      "Lorem ipsum dolor sit amet ipsum dolor sit ametipsum dolor sit amet ipsum dolor sit amet.",
+      "Fragrant basmati rice, tender chicken, caramelized onion, saffron, mint, and cooling raita.",
+    price: 18,
+    category: "House favorite",
   },
   {
-    id: 2,
+    id: "homestyle-curry",
     img: Img2,
-    name: "Chiken kari",
+    name: "Homestyle Chicken Curry",
     description:
-      "Lorem ipsum dolor sit amet ipsum dolor sit ametipsum dolor sit amet ipsum dolor sit amet",
+      "Slow-simmered chicken in a tomato, ginger, and toasted-spice sauce, served with basmati rice.",
+    price: 16,
+    category: "Comfort classic",
   },
   {
-    id: 3,
-    img: Img2,
-    name: "Cold Cofee",
+    id: "cardamom-coffee",
+    img: Img3,
+    name: "Cardamom Cold Coffee",
     description:
-      "Lorem ipsum dolor sit amet ipsum dolor sit ametipsum dolor sit amet ipsum dolor sit amet",
+      "Chilled coffee blended with milk, cardamom, and a lightly sweetened house cream.",
+    price: 6,
+    category: "House drink",
   },
 ];
-const Services = () => {
-  return (
-    <>
-      <span id="services"></span>
-      <div className="py-10">
-        <div className="container">
-          <div className="text-center mb-20 max-w-[400px] mx-auto">
-            <p className="text-sm bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary ">
-              Our Services
-            </p>
-            <h1 className="text-3xl font-bold">Services</h1>
-            <p className="text-xs text-gray-400">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Perspiciatis delectus architecto error nesciunt,
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-14 md:gap-5 place-items-center">
-            {ServicesData.map((service) => (
-              <div
-                data-aos="zoom-in"
-                data-aos-duration="300"
-                className="rounded-2xl bg-white dark:bg-gray-800 hover:bg-primary dark:hover:bg-primary hover:text-white relative shadow-xl duration-high group max-w-[300px]"
-              >
-                <div className="h-[100px]">
-                  <img
-                    src={service.img}
-                    alt=""
-                    className="max-w-[200px] block mx-auto transform -translate-y-14
-                  group-hover:scale-105 group-hover:rotate-6 duration-300"
-                  />
-                </div>
-                <div className="p-4 text-center">
-                  <div className="w-full ">
-                    {/* <StarRatings
-                      rating={4}
-                      starRatedColor="yellow"
-                      isSelectable={false}
-                      starHoverColor="yellow"
-                      // starSelectingHoverColor
-                      starDimension="20px"
-                      changeRating={() => {}}
-                      numberOfStars={5}
-                      name="rating"
-                    /> */}
-                  </div>
-                  <h1 className="text-xl font-bold">{service.name}</h1>
-                  <p className="text-gray-500 group-hover:text-white duration-high text-sm line-clamp-2">
-                    {service.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+
+const Services = ({ onAddToCart }) => (
+  <section
+    id="menu"
+    className="scroll-mt-20 bg-white py-20 dark:bg-stone-900"
+  >
+    <div className="container">
+      <div
+        className="mx-auto max-w-2xl text-center"
+        data-aos="fade-up"
+      >
+        <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
+          A focused menu
+        </p>
+
+        <h2 className="mt-3 text-3xl font-bold sm:text-5xl">
+          Choose your next favorite
+        </h2>
+
+        <p className="mt-4 leading-7 text-stone-600 dark:text-stone-300">
+          A small collection built around bold flavor,
+          consistent preparation, and dishes that travel
+          well.
+        </p>
       </div>
-    </>
-  );
-};
+
+      <div className="mt-16 grid gap-8 md:grid-cols-3">
+        {MENU_ITEMS.map((item, index) => (
+          <article
+            key={item.id}
+            data-aos="fade-up"
+            data-aos-delay={index * 100}
+            className="group flex h-full flex-col overflow-hidden rounded-3xl border border-stone-200 bg-amber-50/60 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-stone-700 dark:bg-stone-800"
+          >
+            <div className="flex h-56 items-center justify-center bg-gradient-to-br from-amber-100 to-orange-50 p-5 dark:from-stone-800 dark:to-stone-900">
+              <img
+                src={item.img}
+                alt={item.name}
+                className="h-full w-full object-contain drop-shadow-xl transition duration-500 group-hover:scale-105 group-hover:rotate-2"
+              />
+            </div>
+
+            <div className="flex flex-1 flex-col p-6">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">
+                {item.category}
+              </p>
+
+              <h3 className="mt-2 text-xl font-bold">
+                {item.name}
+              </h3>
+
+              <p className="mt-3 flex-1 leading-6 text-stone-600 dark:text-stone-300">
+                {item.description}
+              </p>
+
+              <div className="mt-6 flex items-center justify-between border-t border-stone-200 pt-4 dark:border-stone-700">
+                <span className="text-2xl font-bold">
+                  ${item.price}
+                </span>
+
+                <button
+                  type="button"
+                  onClick={() => onAddToCart(item)}
+                  className="flex items-center gap-2 rounded-full bg-stone-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-white dark:text-stone-900 dark:hover:bg-primary dark:hover:text-white dark:focus:ring-offset-stone-800"
+                >
+                  <FaPlus aria-hidden="true" />
+                  Add to order
+                </button>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+);
 
 export default Services;
